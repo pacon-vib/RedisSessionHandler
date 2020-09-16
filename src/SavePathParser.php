@@ -63,6 +63,9 @@ class SavePathParser
         $host = isset($parsed_path['host']) ?
             $parsed_path['host'] : $parsed_path['path'];
 
+        // Handle Redis hostnames of the form "tls://hostname"
+        if ($parsed_path["scheme"] == "tls") { $host = "tls://" . $host; }
+        
         $port = isset($parsed_path['port']) ?
             $parsed_path['port'] : static::DEFAULT_PORT;
 
